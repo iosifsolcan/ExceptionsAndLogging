@@ -14,7 +14,7 @@ public class TestingReadFromFile {
   private List<StudentRepository> studentRepositoryList = new ArrayList<>();
   private boolean validate = false;
   private int count;
-  private int countSize = 0;
+  private int countValidStudents = 0;
   private static final Logger log = Logger.getLogger(TestingReadFromFile.class.getName());
 
   @Test
@@ -36,11 +36,11 @@ public class TestingReadFromFile {
       if (String.valueOf(list.get(i).getID())
           .equalsIgnoreCase(String.valueOf(studentRepositoryList.get(i).getID()))) count++;
       if (count == 5) {
-        countSize++;
+        countValidStudents++;
       }
     }
 
-    if (countSize == list.size() && (list.size() == studentRepositoryList.size())) {
+    if (countValidStudents == list.size() && (list.size() == studentRepositoryList.size())) {
       validate = true;
     }
     if (validate) {
