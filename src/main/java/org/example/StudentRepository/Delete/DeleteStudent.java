@@ -41,6 +41,12 @@ public class DeleteStudent {
       } else {
         System.out.println("Try another ID");
         ID = scanner.nextLine().trim();
+        removed = list.removeIf(studentRepository -> studentRepository.getID().trim().equals(ID));
+        if(removed)
+        {
+          idRemoved = true;
+          System.out.println(ID + " --> Student deleted succesfully");
+        }
       }
       try (BufferedWriter writer =
               new BufferedWriter(

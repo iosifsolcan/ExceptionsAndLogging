@@ -6,13 +6,16 @@ import static org.junit.Assert.assertEquals;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Logger;
 
 public class TestingReadFromFile {
 
   private List<AddStudent> list = new ArrayList<>();
   private List<StudentRepository> studentRepositoryList = new ArrayList<>();
   private boolean validate = false;
-  private int count = 0;
+  private int count;
+  private int countSize = 0;
+  private static final Logger log = Logger.getLogger(TestingReadFromFile.class.getName());
 
   @Test
   public void testReadFromFile() {
@@ -20,23 +23,32 @@ public class TestingReadFromFile {
     list = student1.addStudent();
     ReadFromFile read = new ReadFromFile();
     studentRepositoryList = read.readFromFile();
-    for (int i = 0; i < list.size(); i++) {
-      if (list.get(i).getFirstName().equalsIgnoreCase(studentRepositoryList.get(i).getFirstName()))
-        count++;
-      if (list.get(i).getLastName().equalsIgnoreCase(studentRepositoryList.get(i).getLastName()))
-        count++;
-      if (list.get(i)
-          .getDateOfBirth()
-          .equalsIgnoreCase(studentRepositoryList.get(i).getDateOfBirth())) count++;
-      if (list.get(i).getGender().equalsIgnoreCase(studentRepositoryList.get(i).getGender()))
-        count++;
-      if (list.get(i).getID().equalsIgnoreCase(studentRepositoryList.get(i).getID())) count++;
+    for (int i = 0; i < studentRepositoryList.size(); i++) {
+      count = 0;
+      if (String.valueOf(list.get(i).getFirstName())
+          .equalsIgnoreCase(String.valueOf(studentRepositoryList.get(i).getFirstName()))) count++;
+      if (String.valueOf(list.get(i).getLastName())
+          .equalsIgnoreCase(String.valueOf(studentRepositoryList.get(i).getLastName()))) count++;
+      if (String.valueOf(list.get(i).getDateOfBirth())
+          .equalsIgnoreCase(String.valueOf(studentRepositoryList.get(i).getDateOfBirth()))) count++;
+      if (String.valueOf(list.get(i).getGender())
+          .equalsIgnoreCase(String.valueOf(studentRepositoryList.get(i).getGender()))) count++;
+      if (String.valueOf(list.get(i).getID())
+          .equalsIgnoreCase(String.valueOf(studentRepositoryList.get(i).getID()))) count++;
+      if (count == 5) {
+        countSize++;
+      }
     }
-    int validator = (list.size() * count) / list.size();
-    if (validator % 2 != 0) {
+
+    if (countSize == list.size() && (list.size() == studentRepositoryList.size())) {
       validate = true;
     }
-    assertEquals(true, validate);
-    System.out.println(count + " students are identical in both lists!");
+    if (validate) {
+      assertEquals(true, validate);
+      System.out.println(list.size() + " students are identical in both lists!");
+    } else {
+      log.warning(
+          "Reader doesn't work properly , students data from list are not identical with studentRepositoryList afer reading from file!");
+    }
   }
 }

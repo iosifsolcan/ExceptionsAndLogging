@@ -5,6 +5,7 @@ import org.example.PrintList.PrintList;
 import org.example.StudentRepository.AddStudent.AddStudent;
 import org.example.StudentRepository.AgeX.RetrieveAgeX;
 import org.example.StudentRepository.Delete.DeleteStudent;
+import org.example.StudentRepository.Interface.ImplementMethods;
 import org.example.StudentRepository.ListStudents.ListStudents;
 import org.example.StudentRepository.Reader.ReadFromFile;
 
@@ -13,7 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Data
-public class StudentRepository {
+public class StudentRepository implements ImplementMethods {
   private String firstName;
   private String lastName;
   private String dateOfBirth;
@@ -25,34 +26,28 @@ public class StudentRepository {
   private int countThePassedMethods = 0;
   private boolean removed = false;
 
-  public void readFromFile() {
-    ReadFromFile reader = new ReadFromFile();
-    list = reader.readFromFile();
-    countThePassedMethods++;
-  }
-
-  public void printList() {
-    System.out.println("                                    Students<->Informations");
-    for (StudentRepository student : list) {
-      System.out.println(student);
-    }
-  }
-
-  // *1
+  // Adding students to list and file!
   public void addStudent() {
     AddStudent addStudent = new AddStudent();
     addStudent.addStudent();
     countThePassedMethods++;
   }
 
-  // *2
+  // Read students from file and create another list for implementation of methods!
+  public void readFromFile() {
+    ReadFromFile reader = new ReadFromFile();
+    list = reader.readFromFile();
+    countThePassedMethods++;
+  }
+
+  // Delete students by id from list and file!
   public void deleteStudent() throws IOException {
     DeleteStudent delete = new DeleteStudent();
     removed = delete.deleteStudent(list);
     if (removed) countThePassedMethods++;
   }
 
-  // *3
+  // Retrieve students with ageX from list and create another list with retrieved ones!
   public void retrieveAllStudentsAgeX() {
     RetrieveAgeX ageX = new RetrieveAgeX();
     retrieveAgeXList = ageX.retrieveAgeX(list);
@@ -65,13 +60,23 @@ public class StudentRepository {
     }
   }
 
-  // *4
+  // List students only if every student information is valid and then compare by LastName and
+  // BirthDate!
   public void listStudents() {
     ListStudents listStudents = new ListStudents();
     listStudents.listStudents(list);
     countThePassedMethods++;
   }
 
+  // Print students list!
+  public void printList() {
+    System.out.println("                                    Students<->Informations");
+    for (StudentRepository student : list) {
+      System.out.println(student);
+    }
+  }
+
+  // Print a message to inform user of passing methods!
   public void printReachedFinal() {
     if (countThePassedMethods == 5) {
       reachedFinal = true;
