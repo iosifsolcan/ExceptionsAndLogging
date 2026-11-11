@@ -12,6 +12,7 @@ import org.example.StudentRepository.Reader.ReadFromFile;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Logger;
 
 @Data
 public class StudentRepository implements ImplementMethods {
@@ -25,19 +26,21 @@ public class StudentRepository implements ImplementMethods {
   private boolean reachedFinal = false;
   private int countThePassedMethods = 0;
   private boolean removed = false;
+  private static final Logger logger = Logger.getLogger(StudentRepository.class.getName());
 
   // Adding students to list and file!
   public void addStudent() {
     AddStudent addStudent = new AddStudent();
-    addStudent.addStudent();
-    countThePassedMethods++;
+    if (addStudent.addStudent() != null) countThePassedMethods++;
+    else logger.info("U didn't pass successfully the first method!");
   }
 
   // Read students from file and create another list for implementation of methods!
   public void readFromFile() {
     ReadFromFile reader = new ReadFromFile();
     list = reader.readFromFile();
-    countThePassedMethods++;
+    if (list != null) countThePassedMethods++;
+    else logger.info("U didn't pass successfully the second method!");
   }
 
   // Delete students by id from list and file!
@@ -45,6 +48,7 @@ public class StudentRepository implements ImplementMethods {
     DeleteStudent delete = new DeleteStudent();
     removed = delete.deleteStudent(list);
     if (removed) countThePassedMethods++;
+    else logger.info("U didn't pass successfully the third method!");
   }
 
   // Retrieve students with ageX from list and create another list with retrieved ones!
@@ -56,7 +60,7 @@ public class StudentRepository implements ImplementMethods {
       printListAgeX.printList(retrieveAgeXList);
       if (ageX.getPassMethod()) {
         countThePassedMethods++;
-      }
+      } else logger.info("U didn't pass successfully the fourth method!");
     }
   }
 
@@ -64,8 +68,8 @@ public class StudentRepository implements ImplementMethods {
   // BirthDate!
   public void listStudents() {
     ListStudents listStudents = new ListStudents();
-    listStudents.listStudents(list);
-    countThePassedMethods++;
+    if (listStudents.listStudents(list)) countThePassedMethods++;
+    else logger.info("U didn't pass successfully the fifth method!");
   }
 
   // Print students list!
@@ -83,9 +87,12 @@ public class StudentRepository implements ImplementMethods {
     }
     if (reachedFinal) {
       System.out.println(" U successfully reached the final with 5/5 methods passed!");
-    } else
+    } else {
       System.out.println(
           " You've reached the final, but not all 5/5 methods were passed successfully!");
+      logger.info(
+          "U've reached the final ,but skipped some methods because u entered wrong data from keyboard!");
+    }
   }
 
   @Override

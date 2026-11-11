@@ -11,7 +11,7 @@ public class ListStudents {
   private boolean valid = true;
   private static final Logger logger = Logger.getLogger(ListStudents.class.getName());
 
-  public void listStudents(List<StudentRepository> list) {
+  public boolean listStudents(List<StudentRepository> list) {
     for (StudentRepository student : list) {
       try {
         if (student.getFirstName().isBlank()
@@ -45,5 +45,7 @@ public class ListStudents {
     } else {
       System.out.println("----> Reintroduce data corectly in file!");
     }
+
+    return valid;
   }
 }

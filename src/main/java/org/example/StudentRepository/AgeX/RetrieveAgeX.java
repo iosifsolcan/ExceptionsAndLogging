@@ -24,12 +24,17 @@ public class RetrieveAgeX {
     age = scanner.nextInt();
     for (int i = 0; i < list.size(); i++) {
       String[] expression = list.get(i).getDateOfBirth().split("-");
-      if (Integer.parseInt(expression[0]) > 1900) {
+      if ((Integer.parseInt(expression[0]) >= 1900)
+          && (Integer.parseInt(expression[0]) <= currentYear)) {
         currentAge = currentYear - Integer.parseInt(expression[0]);
         if (age == currentAge) {
           retrieveAgeXList.add(String.valueOf(list.get(i)));
+        } else {
+          logger.warning(
+              "The age u entered is not matching with the age of student : " + currentAge);
         }
-      }
+      } else
+        logger.severe("Incorrect year of the student with ID: -> " + list.get(i).getID().trim());
     }
     if (!(retrieveAgeXList.isEmpty())) {
       System.out.println("[All students with age " + age + "] |");

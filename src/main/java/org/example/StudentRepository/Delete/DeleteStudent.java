@@ -42,10 +42,21 @@ public class DeleteStudent {
         System.out.println("Try another ID");
         ID = scanner.nextLine().trim();
         removed = list.removeIf(studentRepository -> studentRepository.getID().trim().equals(ID));
-        if(removed)
-        {
+        if (removed) {
           idRemoved = true;
           System.out.println(ID + " --> Student deleted succesfully");
+        } else {
+          logger.info("The second id u entered doesn't match with any student id!");
+        }
+        logger.info("The first id u entered doesn't match with any student id!");
+        System.out.println("U wanna try again?");
+        String yesOrNo;
+        yesOrNo = scanner.nextLine();
+        if (yesOrNo.equalsIgnoreCase("yes")) {
+          DeleteStudent deleteStudent = new DeleteStudent();
+          deleteStudent.deleteStudent(list);
+        } else if (yesOrNo.equalsIgnoreCase("no")) {
+          logger.info("I'm sorry, maybe next time!");
         }
       }
       try (BufferedWriter writer =
