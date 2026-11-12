@@ -1,0 +1,9 @@
+
+
+firstName, lastName, dateOfBirth, gender, ID
+
+Alin,Petru,2008-03-01,male,4624975355
+
+Andrei,Ioachim,2005-06-04,male,2324475655
+
+<Student removed> --> ID : 1324375345
