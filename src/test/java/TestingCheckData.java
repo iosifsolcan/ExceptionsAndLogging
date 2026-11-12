@@ -2,16 +2,12 @@ import org.example.StudentRepository.AddStudent.AddStudent;
 import org.example.StudentRepository.CheckStudentData.CheckData;
 import org.junit.jupiter.api.Test;
 
-import java.util.logging.Logger;
+import static org.junit.Assert.assertTrue;
 
-import static org.junit.Assert.assertEquals;
-
-public class TestingAddStudent {
+public class TestingCheckData {
   private boolean valid;
-  private final static Logger logger=Logger.getLogger(TestingAddStudent.class.getName());
-
   @Test
-  public void testAddStudent() {
+  public void testingCheckData() {
     AddStudent student = new AddStudent();
     student.setFirstName("Ioan,");
     student.setLastName("Mihalca,");
@@ -20,8 +16,6 @@ public class TestingAddStudent {
     student.setID("6344475235");
     CheckData checkData = new CheckData();
     valid = checkData.checkStudentData(student);
-    if(valid)
-      assertEquals(true, valid);
-    else logger.warning("incorrect student data informations!");
+    assertTrue(String.valueOf(true), valid);
   }
 }
